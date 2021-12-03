@@ -20,7 +20,7 @@ start server
 $ python manage.py runserver
 ```
 
-<!-- #### Windows
+#### Windows
 
 ```
 $ py -m venv venv
@@ -33,7 +33,7 @@ start server
 
 ```bash 
 $ py manage.py runserver
-``` -->
+```
 
 ### Docker
 
