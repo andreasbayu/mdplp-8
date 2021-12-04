@@ -1,1 +1,32 @@
-<h1>Ini Halaman Home</h1>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+<header class="text-center text-white bg-blue-800 p-3">
+    <img class="inline-block w-24" src="{% static 'polls/images/logo.png' %}" alt="test">
+</header>
+
+<section class="w-2/4 mx-auto mb-80 text-center">
+    <h1 class="text-4xl mt-20 font-bold">MAKE YOUR POLLS EASIER</h1>
+    <p class="mt-10">
+        Here you can make polls and votes easier than ever!
+        Realtime polling gives you better understand your targeted audiences at a certain moment!
+    </p>
+    <a class="mt-10 block bg-green-400 hover:bg-green-500 text-white w-48 h-8 rounded-md leading-loose mx-auto" href="/polls">Tambah Soal</a>
+</section>
+
+<footer>
+    <div class="w-1/4 mx-auto flex justify-evenly">
+        <a href="#"><img class="w-10" src="{% static 'polls/images/twitter.png' %}" alt="twitter"></a>
+        <a href="#"><img class="w-10" src="{% static 'polls/images/facebook.png' %}" alt="facebook"></a>
+        <a href="#"><img class="w-10" src="{% static 'polls/images/instagram.png' %}" alt="instagram"></a>
+    </div>
+
+    <div class="my-5 mx-auto w-1/5 flex justify-evenly">
+        <a href="#">Article</a>
+        <a href="#">Contact</a>
+        <a href="#">About Us</a>
+    </div>
+
+    <div class="bg-blue-800 text-center text-white p-3">
+        <p>&copy; Testoo - All Right Reserved</p>
+    </div>
+</footer>

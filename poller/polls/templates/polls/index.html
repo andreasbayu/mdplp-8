@@ -1,5 +1,54 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+<header class="text-center text-white bg-blue-800 p-3">
+    <img class="inline-block w-24" src="{% static 'polls/images/logo.png' %}" alt="test">
+</header>
+
+<table class="table-auto w-1/2 mx-auto rounded-md mt-20 bg-gray-100 mb-80">
+    <tr class="border-b">
+        <th class="p-3">ID</th>
+        <th class="p-3">Name</th>
+        <th class="p-3">Opened At</th>
+        <th class="p-3">Actions</th>
+    </tr>
+    <tr>
+        {% if latest_question_list %}
+            {% for question in latest_question_list %}
+            <tr>
+                <td class="border-b p-3">{{question.id}}</td>
+                <td class="border-b p-3"><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></td>
+                <td class="border-b p-3">{{question.pub_date}}</td>
+                <td class="border-b p-3"><a class="bg-blue-500 py-1 px-3 rounded-md text-white" href="{% url 'polls:detail' question.id %}">Get Link</a></td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td>NO</td>
+            </tr>
+        {% endif %}
+    </tr>
+</table>
+
+<footer>
+    <div class="w-1/4 mx-auto flex justify-evenly">
+        <a href="#"><img class="w-10" src="{% static 'polls/images/twitter.png' %}" alt="twitter"></a>
+        <a href="#"><img class="w-10" src="{% static 'polls/images/facebook.png' %}" alt="facebook"></a>
+        <a href="#"><img class="w-10" src="{% static 'polls/images/instagram.png' %}" alt="instagram"></a>
+    </div>
+
+    <div class="my-5 mx-auto w-1/5 flex justify-evenly">
+        <a href="#">Article</a>
+        <a href="#">Contact</a>
+        <a href="#">About Us</a>
+    </div>
+
+    <div class="bg-blue-800 text-center text-white p-3">
+        <p>&copy; Testoo - All Right Reserved</p>
+    </div>
+</footer>
+
+
+{% comment %}
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
@@ -9,3 +58,4 @@
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
+{% endcomment %}
