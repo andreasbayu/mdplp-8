@@ -1,23 +1,60 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
-<h1>{{ question.question_text }}</h1>
 
-<ul>
-{% for choice in question.choice_set.all %}
-    <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
-{% endfor %}
-</ul>
+<header class="text-center text-white bg-blue-800 p-3">
+    <img class="inline-block w-24" src="{% static 'polls/images/logo.png' %}" alt="test">
+</header>
 
-<h1>{{ question.label }} </h1>
+<div class="container mx-auto my-20">
+    <div class="flex justify-evenly">
+        <div class="w-full text-center p-10">
+            <h1 class="text-4xl mb-10 font-bold">Polling Result</h1>
+            <div class="w-1/2 mx-auto">
+                <canvas id="myChart" width="10">a</canvas>
+            </div>
+        </div>
+        <div class="w-full p-10">
+            <h1 class="text-4xl font-bold mb-10">{{ question.question_text }}</h1>
+            {% for choice in question.choice_set.all %}
+                <div class="flex justify-between mb-2">
+                    <p>{{ choice.choice_text }}</p>
+                    <p class="bg-gray-300 px-2 rounded-md">{{ choice.votes }} vote{{ choice.votes|pluralize }}</p>
+                </div>
 
-
-<!-- ini chart -->
-<div class="w-1/4">
-    <canvas id="myChart" width="10">a</canvas>
+                <div class="h-5 bg-gray-800 mb-5 rounded-full">
+                    {% if choice.votes == 0 %}
+                        <div class="h-5 bg-green-400 rounded-full" style="width: 0"></div>
+                    {% elif choice.votes == 1 %}
+                        <div class="h-5 bg-green-400 rounded-full" style="width: 25%"></div>
+                    {% else %}
+                        <div class="h-5 bg-green-400 rounded-full" style="width: calc(100% - (100% / {{choice.votes}}));"></div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <p>{{choice.votes}}</p>
+            <a class="text-blue-500" href="{% url 'polls:detail' question.id %}">Back</a>
+        </div>
+    </div>
 </div>
 
+<footer>
+    <div class="w-1/4 mx-auto flex justify-evenly">
+        <a href="#"><img class="w-10" src="{% static 'polls/images/twitter.png' %}" alt="twitter"></a>
+        <a href="#"><img class="w-10" src="{% static 'polls/images/facebook.png' %}" alt="facebook"></a>
+        <a href="#"><img class="w-10" src="{% static 'polls/images/instagram.png' %}" alt="instagram"></a>
+    </div>
 
-<a href="{% url 'polls:detail' question.id %}">Vote again?</a>
+    <div class="my-5 mx-auto w-1/5 flex justify-evenly">
+        <a href="#">Article</a>
+        <a href="#">Contact</a>
+        <a href="#">About Us</a>
+    </div>
+
+    <div class="bg-blue-800 text-center text-white p-3">
+        <p>&copy; Testoo - All Right Reserved</p>
+    </div>
+</footer>
+
 <script src="{% static 'polls/chart.js' %}"></script>
 <script>
     const chart = async () => {
