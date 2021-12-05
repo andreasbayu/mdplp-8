@@ -1,3 +1,5 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 <h1>{{ question.question_text }}</h1>
 
 <ul>
@@ -6,4 +8,50 @@
 {% endfor %}
 </ul>
 
+<h1>{{ question.label }} </h1>
+
+
+<!-- ini chart -->
+<div class="w-1/4">
+    <canvas id="myChart" width="10">a</canvas>
+</div>
+
+
 <a href="{% url 'polls:detail' question.id %}">Vote again?</a>
+<script src="{% static 'polls/chart.js' %}"></script>
+<script>
+    const chart = async () => {
+        try {
+            const url = String(window.location.href);
+            const request = await fetch(url.replace('results', 'results-chart'))
+            const data = await request.json() 
+            const ctx = document.getElementById('myChart')
+
+            const myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: '# of Votes',
+                        data: data.data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132)',
+                            'rgba(54, 162, 235)',
+                            'rgba(255, 206, 86)',
+                            'rgba(75, 192, 192)',
+                            'rgba(153, 102, 255)',
+                            'rgba(255, 127, 61)',
+                            'rgba(155, 111, 60)',
+                            'rgba(33, 159, 55)',
+
+                        ],
+                    }]
+                },
+            })
+        } catch (error) {
+            console.error(error)
+        }
+    }
+    chart()
+    
+</script>

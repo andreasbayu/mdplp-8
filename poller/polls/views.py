@@ -1,5 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
+from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
@@ -40,3 +41,19 @@ def vote(request, question_id):
 
 def home(request):
     return render(request, 'index.html')
+
+def ajax_results(request, question_id):
+    labels = []
+    data = []
+
+    query_set = Choice.objects.filter(question=question_id);
+    for qs in query_set:
+        labels.append(qs.choice_text)
+        data.append(qs.votes)
+
+    return JsonResponse(
+        data= {
+            'labels': labels,
+            'data' : data
+        }
+    )
