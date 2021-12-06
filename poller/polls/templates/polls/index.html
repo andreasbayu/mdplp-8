@@ -5,18 +5,18 @@
 </header>
 
 <table class="table-auto w-1/2 mx-auto rounded-md mt-20 bg-gray-100 mb-80">
-    <tr class="border-b">
+    <thead class="border-b">
         <td class="p-3 font-bold">ID</td>
         <td class="p-3 font-bold">Name</td>
         <td class="p-3 font-bold">Opened At</td>
         <td class="p-3 font-bold">Actions</td>
-    </tr>
+    </thead>
     <tr>
         {% if latest_question_list %}
             {% for question in latest_question_list %}
             <tr class="border-b">
                 <td class="p-3">{{question.id}}</td>
-                <td class="p-3"><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></td>
+                <td class="p-3"><a href="{% url 'polls:detail' question.id %}results">{{ question.question_text }}</a></td>
                 <td class="p-3">{{question.pub_date}}</td>
                 <td class="p-3"><a class="bg-blue-500 py-1 px-3 rounded-md text-white" href="{% url 'polls:detail' question.id %}">Get Link</a></td>
             </tr>
