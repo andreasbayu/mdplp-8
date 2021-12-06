@@ -4,30 +4,40 @@
     <img class="inline-block w-24" src="{% static 'polls/images/logo.png' %}" alt="test">
 </header>
 
-<table class="table-auto w-1/2 mx-auto rounded-md mt-20 bg-gray-100 mb-80">
-    <thead class="border-b">
-        <td class="p-3 font-bold">ID</td>
-        <td class="p-3 font-bold">Name</td>
-        <td class="p-3 font-bold">Opened At</td>
-        <td class="p-3 font-bold">Actions</td>
-    </thead>
-    <tr>
-        {% if latest_question_list %}
-            {% for question in latest_question_list %}
-            <tr class="border-b">
-                <td class="p-3">{{question.id}}</td>
-                <td class="p-3"><a href="{% url 'polls:detail' question.id %}results">{{ question.question_text }}</a></td>
-                <td class="p-3">{{question.pub_date}}</td>
-                <td class="p-3"><a class="bg-blue-500 py-1 px-3 rounded-md text-white" href="{% url 'polls:detail' question.id %}">Get Link</a></td>
-            </tr>
-            {% endfor %}
-        {% else %}
+<div class="w-1/2 mx-auto rounded-md mt-20 bg-gray-100 mb-80 flex flex-col">
+    <div class="p-3 flex justify-end">
+        <a href="{% url 'admin:index' %}" class="bg-blue-800 py-1 px-2 rounded-md text-white text-xs mr-5">+ ADD POLL</a>
+    </div>
+    <table class="table-auto">
+        <thead class="border-b">
             <tr>
-                <td colspan="4">No polls are available.</td>
+                <th class="p-3 font-bold">ID</th>
+                <th class="p-3 font-bold">Name</th>
+                <th class="p-3 font-bold">Opened At</th>
+                <th class="p-3 font-bold">Actions</th>
             </tr>
-        {% endif %}
-    </tr>
-</table>
+        </thead>
+        <tbody>
+            <tr>
+                {% if latest_question_list %}
+                    {% for question in latest_question_list %}
+                    <tr class="border-b">
+                        <td class="p-3">{{question.id}}</td>
+                        <td class="p-3"><a href="{% url 'polls:detail' question.id %}results">{{ question.question_text }}</a></td>
+                        <td class="p-3">{{question.pub_date}}</td>
+                        <td class="p-3 flex justify-evenly"><a class="bg-blue-500 py-1 px-3 rounded-md text-white" href="{% url 'polls:detail' question.id %}">Get Link</a></td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4">No polls are available.</td>
+                    </tr>
+                {% endif %}
+            </tr>
+        </tbody>
+        
+    </table>
+</div>
 
 <footer>
     <div class="w-1/4 mx-auto flex justify-evenly">
